@@ -23,17 +23,46 @@ const ProductPage = ({ product }) => {
 export default ProductPage
 
 
-export async function getServerSideProps({ params }) {
+// export async function getServerSideProps({ params }) {
+
+//     const { permalink } = params
+//     const product = await commerce.products.retrieve(permalink, {
+//         type: 'permalink',
+//     })
+
+//     return{
+//         props: {
+//             product,
+//           },
+//     }
+// } 
+
+export async function getStaticProps({ params }) {
 
     const { permalink } = params
+
     const product = await commerce.products.retrieve(permalink, {
-        type: 'permalink',
-    })
+        type: "permalink"
+    }) 
 
-    return{
-        props: {
-            product,
-          },
+    return {
+        props:{
+            product
+        }
     }
-} 
+}
 
+
+export async function getStaticPaths() {
+
+    const { data: products } = await commerce.products.list()
+
+    return {
+        paths: products.map(product => ({
+                params:{
+                    permalink : product.permalink
+                }
+            })),
+            fallback: false
+    }
+}
