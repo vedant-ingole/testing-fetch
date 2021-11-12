@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -21,14 +22,15 @@ export default function Home({ categories, products }) {
       {
         categories && categories.map(category => (
             <h1 key={category.id}> {category.name} </h1>
-        ))
-      }
+            ))
+          }
       <br />
       {
         products && products.map(product => (
-            <p key={product.id}>
-               {product.name}
-            </p>
+          <div key={product.id}>            
+            <p> {product.name} </p>
+            <img src={product.media.source} alt="image" style={{height:"100px"}} />
+          </div>
         ))
       }
     
