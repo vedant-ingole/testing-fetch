@@ -20,7 +20,7 @@ export default function Home({ categories, products }) {
       </Head>
 
     <Link href="/about">
-      <h1> About</h1>
+      <h1 data-scroll data-scroll-repeat  data-scroll-class="heading" className='initial'> About</h1>
     </Link>
    
       {
