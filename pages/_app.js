@@ -1,9 +1,11 @@
 import '../styles/globals.css'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Router from 'next/router'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+
+import "locomotive-scroll/src/locomotive-scroll.scss"
 
 
 NProgress.configure({showSpinner: false})
@@ -17,8 +19,27 @@ Router.events.on('routeChangeError', () => NProgress.done())
 
 function MyApp({ Component, pageProps }) {
 
+  const ref = useRef(null)
+
+  useEffect(() => {
+    let scroll;
+      import("locomotive-scroll").then((locomotiveModule) => {
+          scroll = new locomotiveModule.default({
+              el: document.querySelector("[data-scroll-container]"),
+              smooth: true,
+              // multiplier: 1
+          });
+      });
+
+      // `useEffect`'s cleanup phase
+      return () => scroll.destroy();
+    });
+    
   return (
-    <Component {...pageProps} />
+
+    <main ref={ref} data-scroll-container  >
+      <Component {...pageProps} />
+    </main>
     )}
     
 export default MyApp
