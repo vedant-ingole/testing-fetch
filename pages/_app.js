@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { useEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import Router from 'next/router'
 
 import NProgress from 'nprogress'
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }) {
 
   const ref = useRef(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let scroll;
       import("locomotive-scroll").then((locomotiveModule) => {
           scroll = new locomotiveModule.default({
@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }) {
     
   return (
 
-    <main ref={ref} data-scroll-container  >
+    <main ref={ref} data-scroll data-scroll-container  >
       <Component {...pageProps} />
     </main>
     )}
